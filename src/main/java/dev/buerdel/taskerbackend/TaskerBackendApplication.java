@@ -44,4 +44,16 @@ public class TaskerBackendApplication {
 			return new ArrayList();
 		}
 	}
+
+	@GetMapping(path = "/tasks/{user}", produces = "application/json")
+	public ArrayList get_user_tasks(@PathVariable("user")String user) throws Exception {
+		try {
+			Database connection = new Database();
+			return connection.select_user_tasks(user);
+		}
+		catch (Exception ex) {
+			System.out.println(ex.getMessage());
+			return new ArrayList();
+		}
+	}
 }
