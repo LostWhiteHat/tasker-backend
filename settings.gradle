@@ -1,1 +1,4 @@
 rootProject.name = 'tasker-backend'
+
+include 'library'
+include 'application'
