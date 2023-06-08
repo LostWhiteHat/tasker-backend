@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 @SpringBootApplication
 @RestController
@@ -53,7 +54,21 @@ public class TaskerBackendApplication {
 		}
 		catch (Exception ex) {
 			System.out.println(ex.getMessage());
-			return new ArrayList();
+			return new ArrayList<>();
+		}
+	}
+
+	@GetMapping(path = "/delete/{id}")
+	public String delete_task(@PathVariable("id")String id) throws ExecutionException {
+		try
+		{
+			Database connection = new Database();
+			connection.delete_task(Integer.parseInt(id));
+			return "Successfully remove task: " + id;
+		}
+		catch (Exception ex) {
+			System.out.println(ex.getMessage());
+			return "An error has occurred";
 		}
 	}
 }
