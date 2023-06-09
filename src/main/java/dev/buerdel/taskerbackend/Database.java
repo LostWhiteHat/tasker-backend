@@ -57,6 +57,20 @@ public class Database {
         }
     }
 
+    public ArrayList<HashMap<String, Object>> select_id_task(Integer id) {
+        try (Connection conn = connect();
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM tasks WHERE id=?", Statement.RETURN_GENERATED_KEYS)){
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            JsonConverter jsonConverter = new JsonConverter();
+            return jsonConverter.get_json_result_array(resultSet);
+        }
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
     public boolean delete_task(int id){
         try (Connection conn = connect();
         PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM tasks WHERE id=?", Statement.RETURN_GENERATED_KEYS)){
@@ -65,6 +79,19 @@ public class Database {
             return true;
         }
         catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
+    public boolean delete_user_task(String user){
+        try (Connection conn = connect();
+        PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM tasks WHERE `user`=?", Statement.RETURN_GENERATED_KEYS)){
+            preparedStatement.setString(1, user);
+            preparedStatement.executeUpdate();
+            return true;
+        }
+        catch (Exception ex){
             System.out.println(ex.getMessage());
             return false;
         }

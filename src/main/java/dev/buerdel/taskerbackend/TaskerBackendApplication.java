@@ -58,13 +58,38 @@ public class TaskerBackendApplication {
 		}
 	}
 
+	@GetMapping(path = "/task/{id}", produces = "application/json")
+	public ArrayList get_task(@PathVariable("id")String id) throws Exception {
+		try {
+			Database connection = new Database();
+			return connection.select_id_task(Integer.parseInt(id));
+		}
+		catch (Exception ex) {
+			System.out.println(ex.getMessage());
+			return new ArrayList();
+		}
+	}
+
 	@GetMapping(path = "/delete/{id}")
-	public String delete_task(@PathVariable("id")String id) throws ExecutionException {
+	public String delete_task(@PathVariable("id")String id) throws Exception {
 		try
 		{
 			Database connection = new Database();
 			connection.delete_task(Integer.parseInt(id));
-			return "Successfully remove task: " + id;
+			return "Successfully removed task: " + id;
+		}
+		catch (Exception ex) {
+			System.out.println(ex.getMessage());
+			return "An error has occurred";
+		}
+	}
+
+	@GetMapping(path = "/delete-user-tasks/{user}")
+	public String delete_user_task(@PathVariable("user")String user) throws Exception{
+		try {
+			Database connection = new Database();
+			connection.delete_user_task(user);
+			return "Successfully removed tasks from: " + user;
 		}
 		catch (Exception ex) {
 			System.out.println(ex.getMessage());

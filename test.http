@@ -15,3 +15,9 @@ GET http://localhost:8080/api/tasks/User1 HTTP/1.1
 
 ###
 GET http://localhost:8080/api/delete/1 HTTP/1.1
+
+###
+GET http://localhost:8080/api/delete-user-tasks/Patrick HTTP/1.1
+
+###
+GET http://localhost:8080/api/task/4 HTTP/1.1
