@@ -1,0 +1,17 @@
+POST http://localhost:8080/api/insert HTTP/1.1
+content-type: application/json
+
+{
+    "user":"User1",
+    "task":"Digga"
+}
+
+###
+
+GET http://localhost:8080/api/tasks HTTP/1.1
+
+###
+GET http://localhost:8080/api/tasks/User1 HTTP/1.1
+
+###
+GET http://localhost:8080/api/delete/1 HTTP/1.1
